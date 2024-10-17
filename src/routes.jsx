@@ -5,7 +5,7 @@ import Home from "./Pages/Home/Home"
 
 let routes = [
     
-    {path:'/', element:<Home/>},
+    {path:'/home', element:<Home/>},
     {path:'/signup', element:<Signup/>},
 ]
 

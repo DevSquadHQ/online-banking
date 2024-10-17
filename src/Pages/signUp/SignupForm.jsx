@@ -1,5 +1,6 @@
 import React from "react";
-import Container from "../../Layout/container/Container";
+
+import ContainerTheme from "../../Layout/container/Container";
 // import { Link } from "react-router-dom";
 import Input from "../../Components/input/Input";
 import Buttons from "../../Components/buttons/Buttons";
@@ -7,7 +8,7 @@ import Links from "../../Components/links/Links";
 
 export default function SignupForm() {
   return (
-    <Container>
+    <ContainerTheme>
       {/* whole form */}
       <div className="flex justify-center items-center h-screen ">
         <div className="md:w-96 w-[375px]">
@@ -56,6 +57,6 @@ export default function SignupForm() {
           </form>
         </div>
       </div>
-    </Container>
+    </ContainerTheme>
   );
 }
