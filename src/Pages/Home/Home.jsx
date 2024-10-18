@@ -1,10 +1,13 @@
-import React from 'react'
-import Header from '../../Components/header/Header'
+import React from "react";
+import Header from "../../Components/header/Header";
+import SideBar from "../../Components/sidebar/SideBAr";
+import ContainerTheme from "../../Layout/container/Container";
 
 export default function Home() {
   return (
-    <div>
-      <Header/>
-    </div>
-  )
+    <ContainerTheme>
+      <Header />
+      <SideBar />
+    </ContainerTheme>
+  );
 }

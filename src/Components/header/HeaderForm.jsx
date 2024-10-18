@@ -6,7 +6,7 @@ export default function HeaderForm() {
   return (
     <div>
       {/* header */}
-      <div className="flex justify-between" style={{ background: "#374151" }}>
+      <div className="flex justify-between h-16" style={{ background: "#374151" }}>
         {/* right side */}
         <div className="flex items-center">
           <Link>
