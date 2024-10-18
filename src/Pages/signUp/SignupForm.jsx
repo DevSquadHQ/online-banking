@@ -4,6 +4,7 @@ import Container from "../../Layout/container/Container";
 import Input from "../../Components/input/Input";
 import Buttons from "../../Components/buttons/Buttons";
 import Links from "../../Components/links/Links";
+import { Link } from "react-router-dom";
 
 export default function SignupForm() {
   return (
@@ -53,7 +54,8 @@ export default function SignupForm() {
             </div>
             {/* link */}
             <p className='text-gray-400 text-sm mt-1 mt-2'>
-              حساب کاربری دارید؟ <Links to={"/"} linkName={"ورود به حساب"} />
+              حساب کاربری دارید؟{" "}
+              <Links to={"/login"} linkName={"ورود به حساب"} />
             </p>
           </form>
         </div>
