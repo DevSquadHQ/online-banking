@@ -1,12 +1,16 @@
 import React from "react";
 import Buttons from "../../Components/buttons/Buttons";
 import { Link } from "react-router-dom";
+import DropDown from "../links/drop-down/DropDown";
 
 export default function HeaderForm() {
   return (
     <div>
       {/* header */}
-      <div className="flex justify-between h-16" style={{ background: "#374151" }}>
+      <div
+        className="flex justify-between h-16"
+        style={{ background: "#1F2A37" }}
+      >
         {/* right side */}
         <div className="flex items-center">
           <Link>
@@ -46,19 +50,13 @@ export default function HeaderForm() {
               </span>
             }
           />
-          
 
           <img
             src="/icons/Notification Icon.png"
             alt="Notification Icon"
             className="mx-3 cursor-pointer"
           />
-
-          <img
-            src="/images/7f9adfb6486c67063d80474f4d89a506.jpg"
-            alt="Profile"
-            className="w-8 h-8 rounded-full ml-4 cursor-pointer"
-          />
+          <DropDown username={"jese Leos"} email={"name@example"} />
         </div>
       </div>
     </div>

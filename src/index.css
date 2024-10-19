@@ -5,3 +5,63 @@
 body {
   font-family: "Vazirmatn", sans-serif;
 }
+
+details {
+  position: relative;
+}
+
+details ul {
+  position: absolute;
+  top: 53px;
+  left: 4px;
+  list-style: none;
+  width: max-content;
+  height: max-content;
+  background-color: #374151;
+  border-radius: 6px;
+  color: #9ca3af;
+}
+
+details ul li {
+  padding: 10px 15px;
+  cursor: pointer;
+  padding: 5px 25px;
+  width: 224px;
+}
+
+details ul li:first-child {
+  border-bottom: 1px solid #4b5563;
+}
+
+details ul li:first-child span.email-info {
+  color: rgb(225, 225, 225, 0.8);
+}
+
+details ul li span {
+  display: flex;
+  color: #fff;
+}
+
+details ul li:last-child {
+  border-top: 1px solid #4b5563;
+}
+
+details ul li:hover {
+  background-color: #1f2a37;
+  color: #fff;
+}
+
+details ul li:last-child:hover {
+  background-color: #3f1717;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+details ul li:first-child:hover {
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+}
+
+details summary {
+  list-style: none;
+}
