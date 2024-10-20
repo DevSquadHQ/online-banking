@@ -3,7 +3,8 @@ import Buttons from "../../Components/buttons/Buttons";
 import { Link } from "react-router-dom";
 import DropDown from "../links/drop-down/DropDown";
 
-export default function HeaderForm() {
+export default function HeaderForm(props) {
+  const {clickHandler} = props
   return (
     <div>
       {/* header */}
@@ -20,8 +21,8 @@ export default function HeaderForm() {
               className="mr-4 hidden md:block"
             />
           </Link>
-          <Link>
-            <img src="/icons/Vector.png" alt="Vector Icon" className="mr-4" />
+          <Link >
+            <img src="/icons/Vector.png" onClick={clickHandler} alt="Vector Icon" className="mr-4" />
           </Link>
         </div>
         {/* left side */}
