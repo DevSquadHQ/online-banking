@@ -1,0 +1,14 @@
+input::placeholder {
+  text-align: right;
+}
+/* For Webkit browsers (Chrome, Safari) */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none; /* Hide the spinner */
+    margin: 0; /* Remove margin */
+}
+
+/* For Firefox */
+input[type="number"] {
+    -moz-appearance: textfield; /* Change appearance to textfield to remove spinners */
+}

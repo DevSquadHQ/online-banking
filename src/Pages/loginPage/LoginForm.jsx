@@ -41,7 +41,7 @@ const LoginPage = () => {
               <Buttons btnName={"ورود به حساب"} />
 
               {/* form-subtext */}
-              <p className="text-gray-400">
+              <p className="text-gray-400 mt-2 text-sm">
                 عضو نیستید؟{" "}
                 <Link to={"/signup"} className="text-blue-700">
                   ایجاد حساب

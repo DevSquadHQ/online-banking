@@ -1,12 +1,29 @@
-import React from 'react'
-import { useRoutes } from 'react-router-dom'
-import routes from './routes'
+import React from "react";
+import { useState } from "react";
+import { useRoutes } from "react-router-dom";
+import routes from "./routes";
+import SidebarForm from "./Components/sidebar/SidebarForm";
+import HeaderForm from "./Components/header/HeaderForm";
+import { useLocation } from "react-router-dom";
 
 export default function App() {
-  let router = useRoutes(routes)
+  const [expanded, setExpanded] = useState(true);
+  const clickHandler = () => setExpanded((makeOpen) => !makeOpen);
+  let router = useRoutes(routes);
+  let location = useLocation();
+
   return (
-    <div >
-      {router}
+    <div>
+      {location.pathname === "/home" ? (
+        <>
+          <HeaderForm clickHandler={clickHandler} />
+          <SidebarForm expanded={expanded} />{" "}
+        </>
+      ) : (
+        <>{router} </>
+      )}
     </div>
-  )
+  );
 }
+
+

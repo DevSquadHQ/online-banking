@@ -1,10 +1,9 @@
 import React from "react";
-import img from "../../assets/img/card.png";
 import Input from "../input/Input";
-import "./accountOpening.css";
+import "./OpenedAcount.css";
 import Buttons from "../buttons/Buttons";
 
-function AccountOpening() {
+export default function OpenedAcount() {
   return (
     <div className="container2">
       <img src={img} />
@@ -13,7 +12,8 @@ function AccountOpening() {
         <label style={{ color: "white" }}>نوع حساب</label>
         <select
           style={{ background: "#374151", border: "none" }}
-          className="my-2 py-2 px-2 w-full rounded-md text-gray-300 border-spacing-1 border-gray-300 outline-none">
+          className="my-2 py-2 px-2 w-full rounded-md text-gray-300 border-spacing-1 border-gray-300 outline-none"
+        >
           <option>جاری</option>
           <option>قرض الحسنه</option>
         </select>
@@ -29,5 +29,3 @@ function AccountOpening() {
     </div>
   );
 }
-
-export default AccountOpening;

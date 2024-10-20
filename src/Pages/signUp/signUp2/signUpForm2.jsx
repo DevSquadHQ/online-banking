@@ -1,30 +1,28 @@
 import React from "react";
-import Container from "../../../Layout/container/Container";
+import ContainerTheme from "../../../Layout/container/Container";
 import { Link } from "react-router-dom";
 import Input from "../../../Components/input/Input";
 import Buttons from "../../../Components/buttons/Buttons";
-function SignupForm2() {
-  jalaliDatepicker.startWatch({
-    minDate: "attr",
-    maxDate: "attr",
-  });
 
+export default function SignupForm2() {
   return (
-    <Container>
-      {/* whole form */}
-      <div className="flex justify-center items-center h-screen ">
+    <ContainerTheme>
+      <div className="flex justify-center items-center h-screen">
         <div className="w-96">
           <h2 className="text-white text-center mb-8 text-2xl font-bold">
             اینترنت بانک من
           </h2>
           <form
             style={{ background: "#1F2A37" }}
-            className="px-5 py-6 rounded-lg">
+            className="px-5 py-6 rounded-lg"
+          >
             <h3 className="text-white mb-6 font-semibold">ایجاد حساب کاربری</h3>
-            <h5 style={{ color: "#fff" }}>تاریخ تولد</h5>
-            <input
+            
+            
+            <Input
               style={{ background: "#374151" }}
               className="my-2 py-2 px-2 w-full rounded-md text-gray-300 border-spacing-1 border-gray-300 outline-none"
+              inputName={'تاریخ تولد'}
               type="text"
               placeholder="انتخاب تاریخ"
               data-jdp
@@ -34,8 +32,9 @@ function SignupForm2() {
               style={{ background: "#374151" }}
               className="my-2 py-2 px-2 w-full rounded-md text-gray-300 border-spacing-1 border-gray-300 outline-none"
               inputName={"شماره موبایل"}
-              type="text"
+              type="number"
               placeholder=" مثال 09121212730 "
+              dir='ltr'
             />
 
             <Input
@@ -44,31 +43,31 @@ function SignupForm2() {
               inputName={"ایمیل"}
               type="email"
               placeholder=" لطفا ایمیل خود را وارد کنید"
+              dir='ltr' 
             />
-            <Buttons btnName={"ثبت نام"} />
 
-            <Link to="/signup">
+            <Buttons btnName={"ثبت نام"}  to={'/'}/>
+
+            
               <Buttons
-                style={{
-                  color: "#1a56db",
-                  background: "#1F2A37",
-                  border: "1px solid #1a56db",
-                }}
+               
+                className={' bg-slate-800 text-blue-600  border-2 border-blue-600 hover:bg-slate-700 '}
                 btnName={"بازگشت"}
+                to='/signup'
               />
-            </Link>
+            
 
-            <p className="text-gray-400">
+            <p className="text-gray-400 mt-2 text-sm">
               حساب کاربری دارید؟{" "}
-              <Link to={"/"} className="text-blue-700">
+              <Link to={"/login"} className="text-blue-700">
                 ورود به حساب
               </Link>
             </p>
           </form>
         </div>
       </div>
-    </Container>
+    </ContainerTheme>
   );
 }
 
-export default SignupForm2;
+
