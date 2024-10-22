@@ -5,15 +5,15 @@ const DropDown = (props) => {
 
   return (
     <>
-      <details>
+      <details className="user-dropdown">
         <summary>
           <img
-            src="/images/7f9adfb6486c67063d80474f4d89a506.jpg"
+            src="/images/avatar.jpg"
             alt="Profile"
             className="w-8 h-8 rounded-full ml-4 cursor-pointer"
           />
         </summary>
-        <ul>
+        <ul className="user-dropdown-area">
           <li>
             <span>{username}</span>
             <span className="email-info">{email}</span>
