@@ -1,57 +1,46 @@
 import Buttons from "../../Components/buttons/Buttons";
 import Input from "../../Components/input/Input";
-import { Link } from "react-router-dom";
-import Container from "../../Layout/container/Container";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import { useState } from "react";
+import Form from "../../Components/form/Form";
+import SubLine from "../../Components/subLine/SubLine";
+import Links from "../../Components/links/Sublink/Links";
+import ContainerTheme from "../../Layout/container/Container";
 
-const LoginPage = () => {
+export default function LoginForm() {
+  const [visibility, setVisibility] = useState(false);
+  let clickHandler = () => {
+    setVisibility(!visibility);
+  };
+
   return (
     <>
-      <Container>
+      <ContainerTheme>
+        <Form Header={"اینترنت بانک من"} FormTitle={"ورود به حساب کاربری"}>
+          <Input
+            inputName="پست الکترونیک"
+            type="text"
+            placeholder="لطفا ایمیل خود را وارد کنید"
+            dir={"ltr"}
+          />
+          <Input
+            inputName={"رمز عبور"}
+            type={visibility ? "type" : "password"}
+            placeholder=""
+            icon={visibility ? VisibilityOffIcon : VisibilityIcon}
+            dir={"ltr"}
+            className={"pl-11 "}
+            onClick={clickHandler}
+          />
+          <Buttons btnName={"ورود به حساب"} />
+
+          <SubLine SubText={"عضو نیستید ؟"}>
+            <Links linkName="ایجاد حساب" to="/signup" />
+          </SubLine>
+        </Form>
         {/* whole form */}
-        <div className="flex justify-center items-center h-screen ">
-          {/* form-title */}
-          <div className="w-96">
-            <h2 className="text-white text-center mb-8 text-2xl font-bold">
-              اینترنت بانک من
-            </h2>
-
-            {/* form-content */}
-            <form
-              style={{ background: "#1F2A37" }}
-              className="px-5 py-6 rounded-lg">
-              <h3 className="text-white mb-6 font-semibold">
-                ورود به حساب کاربری
-              </h3>
-
-              <Input
-                style={{ background: "#374151" }}
-                className="my-2 py-2 px-2 w-full rounded-md text-gray-300 border-spacing-1 border-gray-300 outline-none"
-                inputName="پست الکترونیک"
-                type="text"
-                placeholder="name@happy.com"
-              />
-
-              <Input
-                style={{ background: "#374151" }}
-                className="my-2 py-2 px-2 w-full rounded-md text-gray-300 border-spacing-1 border-gray-300 outline-none"
-                inputName={"رمز عبور"}
-                type="password"
-                placeholder=""
-              />
-              <Buttons btnName={"ورود به حساب"} />
-
-              {/* form-subtext */}
-              <p className="text-gray-400 mt-2 text-sm">
-                عضو نیستید؟{" "}
-                <Link to={"/signup"} className="text-blue-700">
-                  ایجاد حساب
-                </Link>
-              </p>
-            </form>
-          </div>
-        </div>
-      </Container>
+      </ContainerTheme>
     </>
   );
-};
-export default LoginPage;
+}

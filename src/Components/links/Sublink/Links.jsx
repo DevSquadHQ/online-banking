@@ -5,7 +5,7 @@ export default function Links(props) {
   const {linkName, to} = props;
   return (
     <>
-      <Link to={to} className="text-blue-700 ">
+      <Link to={to} className="text-blue-700 pt-2 ">
         {linkName}
       </Link>
     </>

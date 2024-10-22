@@ -1,6 +1,11 @@
 input::placeholder {
   text-align: right;
 }
+
+
+
+/* handling up and down arrow icon in input with number type */
+
 /* For Webkit browsers (Chrome, Safari) */
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
@@ -11,4 +16,11 @@ input[type="number"]::-webkit-outer-spin-button {
 /* For Firefox */
 input[type="number"] {
     -moz-appearance: textfield; /* Change appearance to textfield to remove spinners */
+}
+
+
+.icon {
+  color: aliceblue; /* Icon color */
+  margin-left: -30px; /* Adjust positioning as needed */
+  z-index: 1; /* Ensure it overlaps the input */
 }
