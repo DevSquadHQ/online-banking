@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function Input(props) {
-  const { type, placeholder, inputName } = props;
+  const { type, placeholder, inputName, onChange, id } = props;
 
   return (
     <div className="mb-3">
@@ -11,7 +11,8 @@ export default function Input(props) {
         className="my-2 py-2 px-2 w-full rounded-md text-gray-300 border-spacing-1 border-gray-600 outline-none border-[1px] "
         type={type}
         placeholder={placeholder}
-        
+        onChange={onChange}
+        id={id}
       />
     </div>
   );

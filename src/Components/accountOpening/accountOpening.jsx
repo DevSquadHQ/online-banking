@@ -8,7 +8,7 @@ function AccountOpening() {
   return (
     <div className="container2">
       <img src={img} />
-      <span className="open">افتتاح حساب بانکی</span>
+      <span className="title">افتتاح حساب بانکی</span>
       <form>
         <label style={{ color: "white" }}>نوع حساب</label>
         <select
