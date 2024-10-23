@@ -6,6 +6,8 @@ import TextSnippetIcon from "@mui/icons-material/TextSnippet";
 import PieChartIcon from '@mui/icons-material/PieChart';
 import MoveToInboxIcon from '@mui/icons-material/MoveToInbox';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+
 export default function SidebarForm(props) {
   const { expanded } = props;
 
@@ -32,7 +34,8 @@ export default function SidebarForm(props) {
           icon={<ShoppingBagIcon/>}
           liName={"تنظیمات"}
           expanded={expanded}
-          srcIcon="/icons/chevron-up.png"
+          // srcIcon="/icons/chevron-up.png"
+          subIcon={<KeyboardArrowDownIcon/>}
         />
 
         <li className="mr-8 invisible">مسدود سازی</li>
