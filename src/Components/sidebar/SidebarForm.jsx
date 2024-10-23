@@ -1,30 +1,35 @@
 import React from "react";
-import SideBarLi from "../sideBarLi/SideBarLi";
-import SideBarUl from "../sideBarUl/SideBarUl";
-import SideBarWhole from "../sideBarWhole/SideBarWhole";
+import SideBarLi from "./sideBarLi/SideBarLi";
+import SideBarUl from "./sideBarUl/SideBarUl";
+import SideBarWhole from "./sideBarWhole/SideBarWhole";
+import TextSnippetIcon from "@mui/icons-material/TextSnippet";
+import PieChartIcon from '@mui/icons-material/PieChart';
+import MoveToInboxIcon from '@mui/icons-material/MoveToInbox';
+import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 export default function SidebarForm(props) {
   const { expanded } = props;
 
   return (
     <SideBarWhole expanded={expanded}>
       <SideBarUl>
+       
         <SideBarLi
-          src="/icons/svg/document-report.svg"
+          icon={<TextSnippetIcon/>}
           liName={"خانه"}
           expanded={expanded}
         />
         <SideBarLi
-          src="/icons/chart-pie.png"
+          icon={<PieChartIcon/>}
           liName={"گزارش  "}
           expanded={expanded}
         />
         <SideBarLi
-          src="/icons/inbox-in.png"
+          icon={<MoveToInboxIcon/>}
           liName={"انتقال وجه"}
           expanded={expanded}
         />
         <SideBarLi
-          src="/icons/shopping-bag.png"
+          icon={<ShoppingBagIcon/>}
           liName={"تنظیمات"}
           expanded={expanded}
           srcIcon="/icons/chevron-up.png"

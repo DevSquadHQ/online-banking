@@ -5,7 +5,7 @@ export default function SideBarWhole(props) {
   return (
     <div
       style={{ background: "#374151" }}
-      className={` text-white h-screen pt-5 transition-all duration-300 ${
+      className={` text-white h-screen pt-5 transition-all duration-300 text-nowrap ${
         expanded ? "w-[275px] px-3" : "w-0 px-0"
       }`}
     >

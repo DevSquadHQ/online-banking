@@ -11,6 +11,7 @@ export default function App() {
   const clickHandler = () => setExpanded((makeOpen) => !makeOpen);
   let router = useRoutes(routes);
   let location = useLocation();
+  console.log(location);
 
   /* select all the elements of details tag that is for top left icon of the user and stores it in the 'allDropdown' variable. */
   const allDropdowns = document.querySelectorAll(".user-dropdown");
@@ -34,5 +35,3 @@ export default function App() {
     </div>
   );
 }
-
-

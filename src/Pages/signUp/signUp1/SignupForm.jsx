@@ -15,7 +15,7 @@ export default function SignupForm() {
           style={{ background: "#374151" }}
           inputName="نام"
           type="text"
-          placeholder="لطفا نام  خود را وارد کنید"
+          placeholder="لطفا نام خود را وارد کنید"
         />
         <Input
           style={{ background: "#374151" }}

@@ -2,64 +2,63 @@ import React from "react";
 import Buttons from "../../Components/buttons/Buttons";
 import { Link } from "react-router-dom";
 import DropDown from "../links/drop-down/DropDown";
+import HeaderHolder from "./headerHolder/HeaderHolder";
+import HeaderIcons from "./headerIcons/HeaderIcons";
+import HeaderIconHolder from "./headerIconHolder/HeaderIconHolder";
+import NotesIcon from '@mui/icons-material/Notes';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import Groups2Icon from '@mui/icons-material/Groups2';
 
 export default function HeaderForm(props) {
-  const {clickHandler} = props
+  const { clickHandler } = props;
   return (
     <div>
       {/* header */}
-      <div
-        className="flex justify-between h-16"
-        style={{ background: "#1F2A37" }}
-      >
+      <HeaderHolder>
         {/* right side */}
-        <div className="flex items-center">
+        <HeaderIconHolder>
           <Link>
-            <img
-              src="/icons/Group.png"
-              alt="Group Icon"
-              className="mr-4 hidden md:block"
+            <HeaderIcons
+              icon={< Groups2Icon  sx={{ fontSize: 40 }}/> }
+              className={"hidden md:block mr-4"}
             />
           </Link>
-          <Link >
-            <img src="/icons/Vector.png" onClick={clickHandler} alt="Vector Icon" className="mr-4" />
+          <Link>
+            <HeaderIcons
+              icon={<NotesIcon  sx={{ fontSize: 30 }}/> }
+              onClick={clickHandler}
+              className={"mr-4 "}
+            />
           </Link>
-        </div>
+        </HeaderIconHolder>
         {/* left side */}
-        <div className="flex items-center">
+        <HeaderIconHolder>
           {/* Button for medium and larger screens */}
           <Buttons
-            className="ml-5 "
+            className="ml-5"
             btnName={
               <span>
                 <span className="hidden md:block">
                   ساخت حساب جدید{" "}
-                  <img
-                    src="/icons/plus.png"
-                    alt="Plus Icon"
-                    className="inline"
-                  />
+                  <HeaderIcons src={"/icons/plus.png"} className={"inline"} />
                 </span>
                 <span className="block md:hidden">
                   حساب جدید{" "}
-                  <img
-                    src="/icons/plus.png"
-                    alt="Plus Icon"
-                    className="inline"
-                  />
+                  <HeaderIcons src={"/icons/plus.png"} className={"inline"} />
                 </span>
               </span>
             }
           />
 
-          <img
-            src="/icons/Notification Icon.png"
-            alt="Notification Icon"
-            className="mx-3 cursor-pointer"
+          <HeaderIcons
+          icon={< NotificationsIcon/>}
+            
+            className={"mx-3 cursor-pointer"}
           />
-          <DropDown username={"jese Leos"} email={"name@example"} />
-        </div>
-      </div>
+
+          <DropDown username={"jese Leos"} email={"name@example.com"} />
+        </HeaderIconHolder>
+      </HeaderHolder>
     </div>
   );
 }
