@@ -22,7 +22,6 @@ export default function Input(props) {
           placeholder={placeholder}
           dir={dir}
         />
-      </div>
     </div>
   );
 }
