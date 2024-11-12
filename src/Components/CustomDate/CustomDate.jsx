@@ -11,7 +11,7 @@ export default function CustomDate(props) {
         {label}
       </label>
       <Controller
-      inputStyle
+        inputStyle
         name={name}
         control={control}
         render={({ field }) => (
