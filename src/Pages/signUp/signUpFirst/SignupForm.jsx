@@ -203,14 +203,34 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import CustomDate from "../../../Components/CustomDate/CustomDate";
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import {
+  isPersian,
+  hasPersian,
+  toPersianChars,
+} from "@persian-tools/persian-tools";
 
 export default function SignupForm() {
   const schema = yup.object().shape({
-    name: yup.string().required("نام الزامی است"),
-    lastName: yup.string().required("نام خانوادگی الزامی است "),
-
+    name: yup
+      .string()
+      .required("نام الزامی است")
+      .matches(/^[^0-9]+$/, "نام نباید شامل عدد باشد")
+      .matches(
+        /^[^!@#$%^&*()-_=+~`.<>?/";:]+$/,
+        "نام نباید حاوی کاراکتر خاص باشد"
+      )
+      .test("name", "نام باید با حروف فارسی وارد شود", isPersian),
+    lastName: yup
+      .string()
+      .required("نام خانوادگی الزامی است")
+      .matches(/^[^0-9]+$/, "نام خانوادگی نباید شامل عدد باشد")
+      .matches(
+        /^[^!@#$%^&*()-_=+~`.<>?/";:]+$/,
+        "نام خانوادگی نباید حاوی کاراکتر خاص باشد"
+      )
+      .test("lastname", "نام خانوادگی باید با حروف فارسی وارد شود", isPersian),
     idNumber: yup
       .string()
       .required("کد ملی را وارد کنید")
@@ -253,18 +273,15 @@ export default function SignupForm() {
       // .matches(/^\d{11}$/, "شماره تلفن باید حداقل 11 عدد باشد"),
       .matches(/^09\d{9}$/, "شماره تلفن باید 11 رقم و با 09 شروع شود"),
     username: yup.string().required("یوزر الزامی است"),
-    
+
     password: yup
-    .string()
-    .required("رمز الزامی است")
-    .min(8, "رمز حداقل باید 8 رقم باشد")
-    .matches(/[a-z]/, "رمز باید حداقل یک حرف کوچک داشته باشد")
-    .matches(/[A-Z]/, "رمز باید حداقل یک حرف بزرگ داشته باشد")
-    .matches(/\d/, "رمز باید حداقل یک عدد داشته باشد")
-    .matches(
-      /[@$!%*?&]/,
-      "رمز باید حداقل یه حرف مخصوص داشته باشد"
-    ),
+      .string()
+      .required("رمز الزامی است")
+      .min(8, "رمز حداقل باید 8 رقم باشد")
+      .matches(/[a-z]/, "رمز باید حداقل یک حرف کوچک داشته باشد")
+      .matches(/[A-Z]/, "رمز باید حداقل یک حرف بزرگ داشته باشد")
+      .matches(/\d/, "رمز باید حداقل یک عدد داشته باشد")
+      .matches(/[@$!%*?&]/, "رمز باید حداقل یه حرف مخصوص داشته باشد"),
     confirmPassword: yup
       .string()
       .oneOf([yup.ref("password"), null], "رمز ها باید یکسان باشند")
@@ -316,8 +333,7 @@ export default function SignupForm() {
       <Form
         Header="اینترنت بانک من"
         FormTitle="ایجاد حساب کاربری"
-        onSubmit={handleSubmit(onSubmit)}
-      >
+        onSubmit={handleSubmit(onSubmit)}>
         {formStep === 0 && (
           <>
             <Input
@@ -361,7 +377,6 @@ export default function SignupForm() {
 
         {formStep === 1 && (
           <>
-           
             <CustomDate
               name="date"
               label="تاریخ تولد"
@@ -430,10 +445,9 @@ export default function SignupForm() {
               id="password"
               register={register("password")}
               onClick={clickHandler}
-              className={' pl-10 '}
-             
+              className={" pl-10 "}
             />
-            
+
             <p style={{ color: "red", paddingBottom: "10px" }}>
               {errors.password?.message}
             </p>
@@ -447,7 +461,7 @@ export default function SignupForm() {
               id="confirmPassword"
               register={register("confirmPassword")}
               onClick={clickHandler}
-              className={' pl-10 '}
+              className={" pl-10 "}
             />
             <p style={{ color: "red", paddingBottom: "10px" }}>
               {errors.confirmPassword?.message}
