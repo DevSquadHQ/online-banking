@@ -1,0 +1,30 @@
+.list-content li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
+  padding: 10px 0 10px 0;
+
+  span,
+  div {
+    padding: 0 7px;
+  }
+}
+
+.list-content li:not(:last-of-type) {
+  border-bottom: 1px solid rgb(255, 255, 255, 0.1);
+}
+
+.list-content li:hover {
+  background-color: #374151;
+}
+
+.account-type {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.account-type span:last-child {
+  color: #9ca3af;
+}
