@@ -1,23 +1,23 @@
-import React,{useState} from 'react'
-import PooyaPass from '../../Components/pooyaPass/PooyaPass'
-
+import React, { useState } from "react";
+import PooyaPass from "../../Components/pooyaPass/PooyaPass";
+// import MoneyTransferComp from "../../Components/MoneyTransferComp/MoneyTransferCom";
+import MoneyTransferCom from "../../Components/MoneyTransferComp/MoneyTransferCom";
 
 export default function MoneyTransfer() {
-  const [passAppear, setPassAppear] = useState(false)
+  const [passAppear, setPassAppear] = useState(false);
   const passHandler = () => {
-    setPassAppear(!passAppear )
-  }
+    setPassAppear(!passAppear);
+  };
   const oncloseHandler = () => {
-    setPassAppear(false)
-  }
-  console.log(passAppear)
+    setPassAppear(false);
+  };
+  console.log(passAppear);
+
   return (
     <>
-     
-      <button className='text-white' onClick={passHandler}>click</button>
+      <MoneyTransferCom onClick={passHandler} />
 
-      {passAppear && <PooyaPass onClose={oncloseHandler}/>}
-      
+      {passAppear && <PooyaPass onClose={oncloseHandler} />}
     </>
-  )
+  );
 }

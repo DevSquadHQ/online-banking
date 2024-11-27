@@ -9,7 +9,6 @@ import ChangingPass from "./Pages/changingPass/ChangingPass";
 import BlockingAccount from "./Pages/blockingAccount/BlockingAccount";
 import PooyaPass from "./Components/pooyaPass/PooyaPass";
 
-
 let routes = [
   { path: "/homedata", element: <HomeData /> },
   { path: "/signup", element: <Signup /> },
@@ -19,10 +18,9 @@ let routes = [
   { path: "/moneytransfer", element: <MoneyTransfer /> },
   { path: "/changingpass", element: <ChangingPass /> },
   { path: "/blockingaccount", element: <BlockingAccount /> },
-  { path: "/pooya", element: <PooyaPass/> },
+  { path: "/pooya", element: <PooyaPass /> },
 
   { path: "*", element: <Error /> },
-  
 ];
 
 export default routes;

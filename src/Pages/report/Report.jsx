@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import CustomDate from "../../Components/CustomDate/CustomDate";
 import { useForm } from "react-hook-form";
 import { Button } from "antd";
-// import AccountList from "../../Components/AccountList/AccountList";
-import PaginationFile from "../pagination/PaginantionFile";
+import PaginationFile from "../../Components/paginantion/PaginantionFile";
 import AccountData from "../../Data/Data";
 
+import JalaliDatePicker from "../../Components/JalaliDatePicker/JalaliDatePicker";
+
 export default function Report() {
-  const { control } = useForm();
+  const { control, Controller } = useForm();
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 3;
 
@@ -25,14 +26,15 @@ export default function Report() {
           name="date"
           control={control}
           placeholder="انتخاب محدوده تاریخ"
-          className={'mt-8'}
+          className={"mt-8"}
         />
+
+        <JalaliDatePicker placeholder="تاریخ تولد خود را انتخاب کنید" className={'flex justify-between'}/>
+
         <Button type="primary" className="w-5/6 flex mx-auto mt-6 mb-12 py-5">
           تایید
         </Button>
 
-        {/* Pass paginated data to AccountList */}
-        {/* <AccountList data={paginatedData} /> */}
         {/* Render paginated data */}
         <ul className="mt-6">
           {paginatedData.map((item) => (
@@ -42,13 +44,14 @@ export default function Report() {
             >
               <span>{item.date}</span>
               <span>{item.amount}</span>
-              <span className="">{item.statusIcon}{item.status}</span>
-              <span></span>
+              <span className="">
+                {item.statusIcon}
+                {item.status}
+              </span>
             </li>
           ))}
         </ul>
 
-        {/* Pagination component with change handlers */}
         <PaginationFile
           total={AccountData.length}
           pageSize={pageSize}
@@ -56,7 +59,9 @@ export default function Report() {
           onChange={(page) => setCurrentPage(page)}
           className={"border mt-10"}
         />
-        <p className="flex justify-center mt-6 text-white">نمایش ۱ تا ۳ از ۸ مورد</p>
+        <p className="flex justify-center mt-6 text-white">
+          نمایش ۱ تا ۳ از ۸ مورد
+        </p>
       </div>
     </div>
   );
