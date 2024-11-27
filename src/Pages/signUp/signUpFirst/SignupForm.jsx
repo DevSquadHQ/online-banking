@@ -1,196 +1,3 @@
-// import React, { useState } from "react";
-// import "./signup.css";
-// import ContainerTheme from "../../../Layout/container/Container";
-// import Input from "../../../Components/input/Input";
-// import Buttons from "../../../Components/buttons/Buttons";
-// import Form from "../../../Components/form/Form";
-// import SubLine from "../../../Components/subLine/SubLine";
-// import Links from "../../../Components/links/Sublink/Links";
-// import { useForm } from "react-hook-form";
-// import * as yup from "yup";
-// import { yupResolver } from "@hookform/resolvers/yup";
-
-// export default function SignupForm() {
-//   const schema = yup.object().shape({
-//     name: yup.string().required("Your full name is required"),
-//     lastName: yup.string().required("Your LastName is required"),
-//     idNumber: yup
-//       .string()
-//       .required("Enter your ID")
-//       .length(10, "id must be 10 charechter")
-//       .matches(/^\d+$/, "ID number must contain only digits"),
-//     date: yup
-//       .date()
-//       .required("date of birth is required")
-//       .max(new Date(), "Date must be in the past"),
-//     email: yup
-//       .string()
-//       .email("Invalid email format")
-//       .required("Email is required"),
-//     phoneNumber: yup
-//       .string()
-//       .required("Phone Number is required")
-//       .matches(/^\d{11}$/, "Phone number must be exactly 11 digits"),
-//   });
-//   const [formStep, setFormStep] = useState(0);
-//   const {
-//     register,
-//     handleSubmit,
-//     formState: { errors },
-//   } = useForm({ resolver: yupResolver(schema) });
-
-//   const onSubmit = (data) => {
-//     console.log(data);
-//     console.log("Form submitted");
-//   };
-
-//   const nextHandler = () => {
-//     setFormStep((prevStep) => prevStep + 1);
-//   };
-
-//   const prevHandler = () => {
-//     setFormStep((prevStep) => prevStep - 1);
-//   };
-
-//   return (
-//     <ContainerTheme>
-//       <Form
-//         Header="اینترنت بانک من"
-//         FormTitle="ایجاد حساب کاربری"
-//         // onSubmit={
-//         //   formStep === 1 ? handleSubmit(onSubmit) : (e) => e.preventDefault()
-//         // }
-//         onSubmit={handleSubmit(onSubmit)}
-//       >
-//         {formStep === 0 && (
-//           <>
-//             <Input
-//               style={{ background: "#374151" }}
-//               inputName="نام"
-//               type="text"
-//               placeholder="لطفا نام خود را وارد کنید"
-//               id="name"
-//               register={register("name")}
-//             />
-//             <p style={{ color: "red" }}> {errors.name?.message}</p>
-//             {/* {errors.username && <p>{errors.username.message}</p>} */}
-//             {console.log(errors)}
-//             <Input
-//               style={{ background: "#374151" }}
-//               inputName="نام خانوادگی"
-//               type="text"
-//               placeholder="لطفا نام خانوادگی خود را وارد کنید"
-//               id="lastName"
-//               register={register("lastName")}
-//             />
-//             <p style={{ color: "red" }}> {errors.lastName?.message}</p>
-//             <Input
-//               style={{ background: "#374151" }}
-//               inputName="کدملی"
-//               type="number"
-//               placeholder="لطفا کدملی خود را وارد کنید"
-//               id="idNumber"
-//               dir="ltr"
-//               register={register("idNumber")}
-//             />
-//             <p style={{ color: "red" }}> {errors.idNumber?.message}</p>
-//           </>
-//         )}
-
-//         {formStep === 1 && (
-//           <>
-//             <Input
-//               inputName="تاریخ تولد"
-//               type="text"
-//               placeholder="انتخاب تاریخ"
-//               data-jdp
-//               id="date"
-//               register={register("date")}
-//             />
-//             <p style={{ color: "red" }}> {errors.date?.message}</p>
-//             <Input
-//               inputName="شماره موبایل"
-//               type="number"
-//               placeholder=" مثال 09121212730 "
-//               dir="ltr"
-//               id="phoneNumber"
-//               register={register("phoneNumber")}
-//             />
-//             <p style={{ color: "red" }}> {errors.phoneNumber?.message}</p>
-//             <Input
-//               inputName="ایمیل"
-//               type="email"
-//               placeholder=" لطفا ایمیل خود را وارد کنید"
-//               dir="ltr"
-//               id="email"
-//               register={register("email")}
-//             />
-//             <p style={{ color: "red" }}> {errors.email?.message}</p>
-//             <Buttons
-//               className="bg-slate-800 text-blue-600 border-2 border-blue-600 hover:bg-slate-700"
-//               btnName="بازگشت"
-//               type="button"
-//               onClick={prevHandler}
-//             />
-//           </>
-//         )}
-//         {formStep === 2 && (
-//           <>
-//             {/* Username Input */}
-//             <Input
-//               style={{ background: "#374151" }}
-//               inputName="نام کاربری"
-//               type="text"
-//               placeholder="لطفا نام کاربری خود را وارد کنید"
-//               id="username"
-//               register={register("username")}
-//             />
-//             <p style={{ color: "red" }}>{errors.username?.message}</p>
-
-//             {/* Password Input */}
-//             <Input
-//               inputName="رمز عبور"
-//               type={visibility ? "text" : "password"}
-//               placeholder="لطفا رمز عبور خود را وارد کنید"
-//               icon={visibility ? VisibilityOffIcon : VisibilityIcon}
-//               dir="ltr"
-//               className="pl-11"
-//               id="password"
-//               register={register("password")}
-//               onClick={clickHandler}
-//             />
-//             <p style={{ color: "red" }}>{errors.password?.message}</p>
-
-//             {/* Confirm Password Input */}
-//             <Input
-//               inputName="تایید رمز عبور"
-//               type={visibility ? "text" : "password"}
-//               placeholder="لطفا رمز عبور را دوباره وارد کنید"
-//               icon={visibility ? VisibilityOffIcon : VisibilityIcon}
-//               dir="ltr"
-//               className="pl-11"
-//               id="confirmPassword"
-//               register={register("confirmPassword")}
-//               onClick={clickHandler}
-//             />
-//             <p style={{ color: "red" }}>{errors.confirmPassword?.message}</p>
-//           </>
-//         )}
-
-//         <Buttons
-//           btnName={"ادامه"}
-//           type="button"
-//           onClick={formStep === 1 ? handleSubmit(onSubmit) : nextHandler}
-//         />
-
-//         <SubLine SubText="حساب کاربری دارید ؟">
-//           <Links to="/login" linkName="ورود به حساب" />
-//         </SubLine>
-//       </Form>
-//     </ContainerTheme>
-//   );
-// }
-
 import React, { useState } from "react";
 import "./signup.css";
 import ContainerTheme from "../../../Layout/container/Container";
@@ -199,18 +6,19 @@ import Buttons from "../../../Components/buttons/Buttons";
 import Form from "../../../Components/form/Form";
 import SubLine from "../../../Components/subLine/SubLine";
 import Links from "../../../Components/links/Sublink/Links";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import CustomDate from "../../../Components/CustomDate/CustomDate";
+import api from "../../../api";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import {
-  isPersian,
-  hasPersian,
-  toPersianChars,
-} from "@persian-tools/persian-tools";
-
+import JalaliDatePicker from "../../../Components/JalaliDatePicker/JalaliDatePicker";
+import Countdown from "react-countdown";
+const isPersian = (value) => {
+  if (!value) return false; // Ensure the value is not empty or null
+  const persianRegex = /^[\u0600-\u06FF\s]+$/; // Persian characters and spaces
+  return persianRegex.test(value);
+};
 export default function SignupForm() {
   const schema = yup.object().shape({
     name: yup
@@ -262,6 +70,7 @@ export default function SignupForm() {
     date: yup
       .date()
       .required("تاریخ تولد را وارد کنید")
+      .nullable()
       .max(new Date(), "تاریخ باید در گذشته باشد"),
     email: yup
       .string()
@@ -273,11 +82,10 @@ export default function SignupForm() {
       // .matches(/^\d{11}$/, "شماره تلفن باید حداقل 11 عدد باشد"),
       .matches(/^09\d{9}$/, "شماره تلفن باید 11 رقم و با 09 شروع شود"),
     username: yup.string().required("یوزر الزامی است"),
-
     password: yup
       .string()
       .required("رمز الزامی است")
-      .min(8, "رمز حداقل باید 8 رقم باشد")
+      .min(8, "رمز باید حداقل 8 رقم باشد")
       .matches(/[a-z]/, "رمز باید حداقل یک حرف کوچک داشته باشد")
       .matches(/[A-Z]/, "رمز باید حداقل یک حرف بزرگ داشته باشد")
       .matches(/\d/, "رمز باید حداقل یک عدد داشته باشد")
@@ -286,10 +94,18 @@ export default function SignupForm() {
       .string()
       .oneOf([yup.ref("password"), null], "رمز ها باید یکسان باشند")
       .required("رمز را مجدد وارد کنید"),
+
+    otpPassword: yup
+      .string()
+      .required("رمز الزامی است")
+      .matches(/^\d+$/, "رمز فقط باید شامل اعداد باشد") // Only allows numbers
+      .min(6, "رمز باید 6 رقم باشد")
+      .max(6, "رمز باید 6 رقم باشد"), // Ensure exactly 6 digits
   });
 
   const [formStep, setFormStep] = useState(0);
-  const [visibility, setVisibility] = useState(false);
+  const [passVisibility, setPassVisibility] = useState(false);
+  const [confPassVisibility, setConfPassVisibility] = useState(false);
   const {
     control,
     register,
@@ -301,8 +117,37 @@ export default function SignupForm() {
     mode: "onChange",
   });
 
-  const onSubmit = (data) => {
-    console.log("Form submitted:", data);
+  // const onSubmit = async (data) => {
+  //   console.log("Form submitted:", data);
+  //   const response = await fetch("http://localhost:3000/register", {
+  //     method: "POST",
+  //     headers: {
+  //       accept: "application",
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(data),
+  //   });
+  //   console.log("res", await response.json());
+  // };
+
+  const onSubmit = async (data) => {
+    try {
+      console.log("Form submitted:", data);
+
+      const response = await api.post(
+        "https://internetbankwebapi.liara.run/api/v1/User/register",
+        data
+      );
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error:", error.response?.data || error.message);
+
+      if (error.response?.data?.message) {
+        alert(error.response.data.message); // Show specific error message from the API
+      } else {
+        alert("An unexpected error occurred. Please try again.");
+      }
+    }
   };
 
   const nextHandler = async () => {
@@ -311,7 +156,9 @@ export default function SignupForm() {
         ? ["name", "lastName", "idNumber"]
         : formStep === 1
         ? ["date", "phoneNumber", "email"]
-        : ["username", "password", "confirmPassword"];
+        : formStep === 2
+        ? ["username", "password", "confirmPassword"]
+        : ["optCode"];
 
     const isStepValid = await trigger(currentStepFields);
 
@@ -325,7 +172,10 @@ export default function SignupForm() {
   };
 
   const clickHandler = () => {
-    setVisibility(!visibility);
+    setPassVisibility(!passVisibility);
+  };
+  const clickHandlerConf = () => {
+    setConfPassVisibility(!confPassVisibility);
   };
 
   return (
@@ -368,6 +218,7 @@ export default function SignupForm() {
               id="idNumber"
               dir="ltr"
               register={register("idNumber")}
+              className={"pl-4"}
             />
             <p style={{ color: "red", paddingBottom: "10px" }}>
               {errors.idNumber?.message}
@@ -377,12 +228,20 @@ export default function SignupForm() {
 
         {formStep === 1 && (
           <>
-            <CustomDate
+            <h1 className="text-white  text-sm pb-2">تاریخ تولد</h1>
+
+            <Controller
               name="date"
-              label="تاریخ تولد"
               control={control}
-              error={errors.date?.message}
-              placeholder="انتخاب تاریخ"
+              render={({ field }) => (
+                <JalaliDatePicker
+                  id="date"
+                  type={"text"}
+                  {...field}
+                  onChange={(date) => field.onChange(date)}
+                  placeholder="تاریخ تولد خود را انتخاب کنید"
+                />
+              )}
             />
 
             <p style={{ color: "red", paddingBottom: "10px" }}>
@@ -396,6 +255,7 @@ export default function SignupForm() {
               dir="ltr"
               id="phoneNumber"
               register={register("phoneNumber")}
+              className={"pl-4"}
             />
             <p style={{ color: "red", paddingBottom: "10px" }}>
               {errors.phoneNumber?.message}
@@ -403,11 +263,12 @@ export default function SignupForm() {
 
             <Input
               inputName="ایمیل"
-              type="email"
+              type="text"
               placeholder=" لطفا ایمیل خود را وارد کنید"
               dir="ltr"
               id="email"
               register={register("email")}
+              className={"pl-4"}
             />
             <p style={{ color: "red", paddingBottom: "10px" }}>
               {errors.email?.message}
@@ -438,9 +299,9 @@ export default function SignupForm() {
 
             <Input
               inputName="رمز عبور"
-              type={visibility ? "text" : "password"}
+              type={passVisibility ? "text" : "password"}
               placeholder="لطفا رمز عبور خود را وارد کنید"
-              icon={visibility ? VisibilityOffIcon : VisibilityIcon}
+              icon={passVisibility ? VisibilityOffIcon : VisibilityIcon}
               dir="ltr"
               id="password"
               register={register("password")}
@@ -454,13 +315,13 @@ export default function SignupForm() {
 
             <Input
               inputName="تایید رمز عبور"
-              type={visibility ? "text" : "password"}
+              type={confPassVisibility ? "text" : "password"}
               placeholder="لطفا رمز عبور را دوباره وارد کنید"
-              icon={visibility ? VisibilityOffIcon : VisibilityIcon}
+              icon={confPassVisibility ? VisibilityOffIcon : VisibilityIcon}
               dir="ltr"
               id="confirmPassword"
               register={register("confirmPassword")}
-              onClick={clickHandler}
+              onClick={clickHandlerConf}
               className={" pl-10 "}
             />
             <p style={{ color: "red", paddingBottom: "10px" }}>
@@ -475,11 +336,51 @@ export default function SignupForm() {
             />
           </>
         )}
+        {formStep === 3 && (
+          <>
+            <Input
+              style={{ background: "#374151" }}
+              inputName="رمز Otp را وارد کنید  "
+              type={passVisibility ? "text" : "password"}
+              placeholder="لطفا رمز دریافتی را وارد کنید"
+              icon={passVisibility ? VisibilityOffIcon : VisibilityIcon}
+              dir="ltr"
+              id="otpPassword"
+              register={register("otpPassword")}
+              onClick={clickHandler}
+              className={" pl-10 mb-0 "}
+            />
+            <p style={{ color: "red", paddingBottom: "10px" }}>
+              {errors.otpPassword?.message}
+            </p>
+              <div className="flex justify-between items-center">
+                <Links linkName="دریافت مجدد کد" className={"pt-0"} />
+                <span className="text-white bg-gray-800 rounded-md">
+                  <Countdown
+                    date={Date.now() + 6000}
+                    renderer={({ minutes, seconds }) => {
+                      return (
+                        <span>
+                          {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
+                        </span>
+                      );
+                    }}
+                  />
+                </span>
+              </div>
+            <Buttons
+              className="bg-slate-800 text-blue-600 border-2 border-blue-600 hover:bg-slate-700"
+              btnName="بازگشت"
+              type="button"
+              onClick={prevHandler}
+            />
+          </>
+        )}
 
         <Buttons
-          btnName={formStep < 2 ? "ادامه" : "ثبت نام"}
+          btnName={formStep < 3 ? "ادامه" : "ثبت نام"}
           type="button"
-          onClick={formStep === 2 ? handleSubmit(onSubmit) : nextHandler}
+          onClick={formStep === 3 ? handleSubmit(onSubmit) : nextHandler}
         />
 
         <SubLine SubText="حساب کاربری دارید ؟">

@@ -1,4 +1,6 @@
-const BlockUnblock = () => {
+import React from "react";
+
+export default function BlockUnblock() {
   return (
     <>
       <div className="list-container">
@@ -20,5 +22,4 @@ const BlockUnblock = () => {
       </div>
     </>
   );
-};
-export default BlockUnblock;
+}

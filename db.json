@@ -1,0 +1,40 @@
+{
+  "users": [
+    {
+      "email": "rtajadod93@gmail.com",
+      "password": "$2a$10$egbjsKam88Q6qLuS3XngG.RZXFekXKPeLXpV5DK12q9XIr81XG5ym",
+      "name": "Areza",
+      "lastName": "Tajadod",
+      "idNumber": "2581598621",
+      "phoneNumber": "09333333333",
+      "date": "2024-09-07T22:00:00.000Z",
+      "username": "fgegerg@yahoo.com",
+      "confirmPassword": "an95MNyEGshiBHa@",
+      "id": 1
+    },
+    {
+      "email": "rtajadod3@gmail.com",
+      "password": "$2a$10$d4T49xpqfbWrvRwRQFqgdeiMbko2VjvtlZQ/8p9P.Pau.c3KMask2",
+      "name": "Areza",
+      "lastName": "Tajadod",
+      "idNumber": "2581598621",
+      "phoneNumber": "09333333333",
+      "date": "2024-09-07T22:00:00.000Z",
+      "username": "fgegrg@yahoo.com",
+      "confirmPassword": "an95MNyEGshiBHa@",
+      "id": 2
+    },
+    {
+      "email": "rtajad93@gmail.com",
+      "password": "$2a$10$QuFv/Z4uXXMyolBnXjqWU.cQbY4osftKef2EALoRIDw0XXDFsCjry",
+      "name": "hhh",
+      "lastName": "ssd",
+      "idNumber": "2581598621",
+      "phoneNumber": "09333333333",
+      "date": "2024-09-05T22:00:00.000Z",
+      "username": "fgegerg@yahoo.com",
+      "confirmPassword": "an95MNyEGshiBHa@",
+      "id": 3
+    }
+  ]
+}
