@@ -10,7 +10,7 @@ import MonyTransfer from "./Components/monyTransfer/monyTransfer";
 import Report from "./Pages/report/Report";
 import MoneyTransfer from "./Pages/moneyTransfer/MoneyTransfer";
 import ChangingPass from "./Pages/changingPass/ChangingPass";
-import BlockingAccount from "./Pages/blockingAccount/BlockingAccount";
+// import BlockingAccount from "./Pages/blockingAccount/BlockingAccount";
 import PooyaPass from "./Components/pooyaPass/PooyaPass";
 import AccountLists from "./Pages/AccountLists/AccountLists";
 
@@ -22,7 +22,7 @@ let routes = [
   { path: "/report", element: <Report /> },
   { path: "/moneytransfer", element: <MoneyTransfer /> },
   { path: "/changingpass", element: <ChangingPass /> },
-  { path: "/blockingaccount", element: <BlockingAccount /> },
+  // { path: "/blockingaccount", element: <BlockingAccount /> },
   { path: "/pooya", element: <PooyaPass /> },
 
   { path: "*", element: <Error /> },
