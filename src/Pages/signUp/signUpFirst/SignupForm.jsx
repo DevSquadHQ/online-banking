@@ -183,7 +183,8 @@ export default function SignupForm() {
       <Form
         Header="اینترنت بانک من"
         FormTitle="ایجاد حساب کاربری"
-        onSubmit={handleSubmit(onSubmit)}>
+        onSubmit={handleSubmit(onSubmit)}
+      >
         {formStep === 0 && (
           <>
             <Input
@@ -353,21 +354,21 @@ export default function SignupForm() {
             <p style={{ color: "red", paddingBottom: "10px" }}>
               {errors.otpPassword?.message}
             </p>
-              <div className="flex justify-between items-center">
-                <Links linkName="دریافت مجدد کد" className={"pt-0"} />
-                <span className="text-white bg-gray-800 rounded-md">
-                  <Countdown
-                    date={Date.now() + 6000}
-                    renderer={({ minutes, seconds }) => {
-                      return (
-                        <span>
-                          {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
-                        </span>
-                      );
-                    }}
-                  />
-                </span>
-              </div>
+            <div className="flex justify-between items-center">
+              <Links linkName="دریافت مجدد کد" className={"pt-0"} />
+              <span className="text-white bg-gray-800 rounded-md">
+                <Countdown
+                  date={Date.now() + 6000}
+                  renderer={({ minutes, seconds }) => {
+                    return (
+                      <span>
+                        {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
+                      </span>
+                    );
+                  }}
+                />
+              </span>
+            </div>
             <Buttons
               className="bg-slate-800 text-blue-600 border-2 border-blue-600 hover:bg-slate-700"
               btnName="بازگشت"
@@ -384,7 +385,7 @@ export default function SignupForm() {
         />
 
         <SubLine SubText="حساب کاربری دارید ؟">
-          <Links to="/login" linkName="ورود به حساب" />
+          <Links to="/" linkName="ورود به حساب" />
         </SubLine>
       </Form>
     </ContainerTheme>

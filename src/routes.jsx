@@ -21,8 +21,8 @@ let routes = [
   { path: "/pooya", element: <PooyaPass /> },
 
   { path: "*", element: <Error /> },
-  { path: "/block", element: <BlockUnblock /> },
-  { path: "/monyTransfer", element: <MonyTransfer /> },
+  // { path: "/block", element: <BlockUnblock /> },
+  { path: "/monyTransfer", element: <MoneyTransfer /> },
 ];
 
 export default routes;
