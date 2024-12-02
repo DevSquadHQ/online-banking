@@ -25,3 +25,7 @@
     color: white;
   }
   
+  .jalali-date-input[title] {
+    position: relative;
+  }
+  

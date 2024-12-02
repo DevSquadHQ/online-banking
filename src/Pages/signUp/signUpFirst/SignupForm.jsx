@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./signup.css";
 import ContainerTheme from "../../../Layout/container/Container";
 import Input from "../../../Components/input/Input";
@@ -103,9 +103,17 @@ export default function SignupForm() {
       .max(6, "رمز باید 6 رقم باشد"), // Ensure exactly 6 digits
   });
 
+  const [countdownTime, setCountDownTime] = useState(null);
   const [formStep, setFormStep] = useState(0);
   const [passVisibility, setPassVisibility] = useState(false);
   const [confPassVisibility, setConfPassVisibility] = useState(false);
+  const [countdownKey, setCountdownKey] = useState(0);
+
+  useEffect(() => {
+    if (formStep === 3) {
+      setCountDownTime(Date.now() + 60000);
+    }
+  }, [formStep]);
   const {
     control,
     register,
@@ -116,6 +124,11 @@ export default function SignupForm() {
     resolver: yupResolver(schema),
     mode: "onChange",
   });
+
+  const CountdownReset = () => {
+    setCountDownTime(Date.now() + 60000);
+    setCountdownKey((prev) => prev + 1);
+  };
 
   // const onSubmit = async (data) => {
   //   console.log("Form submitted:", data);
@@ -354,20 +367,27 @@ export default function SignupForm() {
             <p style={{ color: "red", paddingBottom: "10px" }}>
               {errors.otpPassword?.message}
             </p>
-            <div className="flex justify-between items-center">
-              <Links linkName="دریافت مجدد کد" className={"pt-0"} />
-              <span className="text-white bg-gray-800 rounded-md">
-                <Countdown
-                  date={Date.now() + 6000}
-                  renderer={({ minutes, seconds }) => {
-                    return (
-                      <span>
-                        {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
-                      </span>
-                    );
-                  }}
-                />
-              </span>
+            <div className="flex items-center justify-between">
+              <Links
+                onclick={CountdownReset}
+                linkName="دریافت مجدد کد"
+                className={"pt-0 pb-2"}
+              />
+              {countdownTime && (
+                <span className="text-white bg-gray-800 rounded-md">
+                  <Countdown
+                    key={countdownKey}
+                    date={countdownTime}
+                    renderer={({ minutes, seconds }) => {
+                      return (
+                        <span>
+                          {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
+                        </span>
+                      );
+                    }}
+                  />
+                </span>
+              )}
             </div>
             <Buttons
               className="bg-slate-800 text-blue-600 border-2 border-blue-600 hover:bg-slate-700"

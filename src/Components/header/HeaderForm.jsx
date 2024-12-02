@@ -8,8 +8,10 @@ import HeaderIconHolder from "./headerIconHolder/HeaderIconHolder";
 import NotesIcon from '@mui/icons-material/Notes';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import Groups2Icon from '@mui/icons-material/Groups2';
+import { useNavigate } from "react-router-dom";
 
 export default function HeaderForm(props) {
+  const navigate = useNavigate()
   const { clickHandler } = props;
   return (
     <div>
@@ -38,9 +40,10 @@ export default function HeaderForm(props) {
             
             btnName={
               <span>
-                <span className="hidden md:block">
+                <span className="hidden md:block" onClick={() => navigate('/newaccount')}>
                   ساخت حساب جدید{" "}
                   <HeaderIcons src={"/icons/plus.png"} className={"inline"} />
+                  
                 </span>
                 <span className="block md:hidden">
                   حساب جدید{" "}

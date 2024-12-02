@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import Form from "../form/Form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import JalaliDatePicker from "../JalaliDatePicker/JalaliDatePicker";
 
 export default function MoneyTransferCom({onClick}) {
   const schema = yup.object().shape({
@@ -63,7 +64,8 @@ export default function MoneyTransferCom({onClick}) {
           {errors.amount?.message}
         </p>
         <Input inputName="CVV2" />
-        <CustomDate label="تاریخ انقضا" name="date" control={control} />
+        {/* <CustomDate label="تاریخ انقضا" name="date" control={control} /> */}
+        <JalaliDatePicker placeholder={'لطفا تاریخ را انتخاب کنید'} title={'تاریخ انقضا'}/>
         <Buttons btnName={"تایید"} onClick={onClick} />
       </Form>
     </>

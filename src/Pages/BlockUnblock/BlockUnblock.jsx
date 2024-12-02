@@ -1,9 +1,10 @@
 import React from "react";
+import BlockUnblock from "../../Components/BlockUnblock/BlockUnblock";
 
 export default function BlockUnblock() {
   return (
     <>
-      <div className="list-container">
+      {/* <div className="list-container">
         <ul className="list">
           <li>
             <span>seporde</span>
@@ -19,7 +20,8 @@ export default function BlockUnblock() {
           </li>
           <button className="list-btn">block</button>
         </ul>
-      </div>
+      </div> */}
+      <BlockUnblock/>
     </>
   );
 }

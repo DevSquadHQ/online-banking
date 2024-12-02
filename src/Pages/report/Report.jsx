@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import CustomDate from "../../Components/CustomDate/CustomDate";
+
 import { useForm } from "react-hook-form";
 import { Button } from "antd";
 import PaginationFile from "../../Components/paginantion/PaginantionFile";
 import AccountData from "../../Data/Data";
-
-import JalaliDatePicker from "../../Components/JalaliDatePicker/JalaliDatePicker";
+import JalaliDatePickerRange from "../../Components/JalaliDatePicker/JalaliDatePickerRange";
 
 export default function Report() {
   const { control, Controller } = useForm();
@@ -20,32 +19,27 @@ export default function Report() {
 
   return (
     <div>
-      <div className="bg-slate-700 w-[480px] h-[564px] px-8 py-10">
+      <div className="bg-gray-800 w-[480px] h-auto px-8 py-10 mt-10 rounded-md">
         <h2 className="text-white font-bold text-2xl">گزارش مالی</h2>
-        <CustomDate
-          name="date"
-          control={control}
-          placeholder="انتخاب محدوده تاریخ"
-          className={"mt-8"}
-        />
+        <div className="flex justify-center mt-5">
+          <JalaliDatePickerRange placeholder="انتخاب محدوده تاریخ" />
+        </div>
 
-        <JalaliDatePicker placeholder="تاریخ تولد خود را انتخاب کنید" className={'flex justify-between'}/>
-
-        <Button type="primary" className="w-5/6 flex mx-auto mt-6 mb-12 py-5">
+        <Button type="primary" className="w-5/6 flex mx-auto mt-0 mb-6 py-5">
           تایید
         </Button>
 
         {/* Render paginated data */}
-        <ul className="mt-6">
+        <ul className="mt-6 p-0">
           {paginatedData.map((item) => (
             <li
               key={item.key}
-              className="flex items-end justify-between  bg-gray-600 text-white p-4 mb-2 rounded"
+              className="flex justify-between  bg-gray-500 text-white p-4 mb-2 rounded"
             >
               <span>{item.date}</span>
               <span>{item.amount}</span>
-              <span className="">
-                {item.statusIcon}
+              <span className="mx-2">
+                <span className="ml-2">{item.statusIcon}</span>
                 {item.status}
               </span>
             </li>
@@ -57,10 +51,11 @@ export default function Report() {
           pageSize={pageSize}
           currentPage={currentPage}
           onChange={(page) => setCurrentPage(page)}
-          className={"border mt-10"}
+          className={"border border-gray-500 mt-10 p-[1px]"}
         />
-        <p className="flex justify-center mt-6 text-white">
-          نمایش ۱ تا ۳ از ۸ مورد
+
+        <p className="flex justify-center mt-6 text-gray-300 ">
+          {`نمایش 1 تا ${pageSize} از ${AccountData.length} مورد`}
         </p>
       </div>
     </div>
