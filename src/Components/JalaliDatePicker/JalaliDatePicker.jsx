@@ -1,3 +1,6 @@
+
+
+
 import React, { useState, useEffect } from "react";
 import DatePicker from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
@@ -5,7 +8,7 @@ import persian_fa from "react-date-object/locales/persian_fa";
 import DateObject from "react-date-object"; // Ensure we're using DateObject for proper date handling
 import "./JalaliDatePicker.css";
 
-export default function JalaliDatePicker({ value, onChange, placeholder }) {
+export default function JalaliDatePicker({ value, onChange, placeholder, title }) {
   const [date, setDate] = useState(null);
 
   // Sync the internal state with the 'value' prop whenever it changes
@@ -51,16 +54,20 @@ export default function JalaliDatePicker({ value, onChange, placeholder }) {
   };
 
   return (
-    <DatePicker
-      value={date ? date.toDate() : null} // Ensure we pass a valid JavaScript Date or null
-      onChange={handleChange}
-      calendar={persian}
-      locale={persian_fa}
-      inputClass="jalali-date-input"
-      containerClass="jalali-date-container"
-      className="jalali-calendar"
-      placeholder={placeholder}
-      format="YYYY/MM/DD"
-    />
+    <div>
+      {/* Render the title as a heading */}
+      {title && <h3 className="jalali-date-title text-white pb-2 text-sm">{title}</h3>}
+      <DatePicker
+        value={date ? date.toDate() : null} // Ensure we pass a valid JavaScript Date or null
+        onChange={handleChange}
+        calendar={persian}
+        locale={persian_fa}
+        inputClass="jalali-date-input"
+        containerClass="jalali-date-container"
+        className="jalali-calendar"
+        placeholder={placeholder}
+        format="YYYY/MM/DD"
+      />
+    </div>
   );
 }

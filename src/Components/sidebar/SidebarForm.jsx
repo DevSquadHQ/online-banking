@@ -58,7 +58,7 @@ export default function SidebarForm(props) {
               className={`mr-8 transition-opacity duration-300 ease-in-out   ${
                 arrowDown ? "opacity-100 " : "opacity-0 "
               }`}
-              onClick={() => navigate("/blockingaccount")}
+              onClick={() => navigate("/blockunblock")}
             >
               مسدود سازی
             </li>
