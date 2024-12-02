@@ -59,7 +59,7 @@ export default function HeaderForm(props) {
             className={"mx-3 cursor-pointer"}
           />
 
-          <DropDown username={"jese Leos"} email={"name@example.com"}  />
+          <DropDown username={"jese Leos"} email={"name@example.com"} />
         </HeaderIconHolder>
       </HeaderHolder>
     </div>

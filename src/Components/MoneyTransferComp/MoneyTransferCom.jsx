@@ -1,7 +1,6 @@
 import React from "react";
 import "./MoneyTransferComp.css";
 import Input from "../input/Input";
-import CustomDate from "../CustomDate/CustomDate";
 import Buttons from "../buttons/Buttons";
 import { useForm } from "react-hook-form";
 import Form from "../form/Form";
@@ -64,7 +63,6 @@ export default function MoneyTransferCom({onClick}) {
           {errors.amount?.message}
         </p>
         <Input inputName="CVV2" />
-        {/* <CustomDate label="تاریخ انقضا" name="date" control={control} /> */}
         <JalaliDatePicker placeholder={'لطفا تاریخ را انتخاب کنید'} title={'تاریخ انقضا'}/>
         <Buttons btnName={"تایید"} onClick={onClick} />
       </Form>
