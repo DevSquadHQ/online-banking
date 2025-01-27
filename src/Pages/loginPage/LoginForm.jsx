@@ -10,6 +10,7 @@ import ContainerTheme from "../../Layout/container/Container";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom"; // For navigation after successful login
 
 export default function LoginForm() {
   const [visibility, setVisibility] = useState(false);
@@ -20,8 +21,8 @@ export default function LoginForm() {
   const schema = yup.object().shape({
     email: yup
       .string()
-      .required("ایمیل الزامی است")
-      .email("ایمیل معتبر وارد کنید"),
+      .required("ایمیل الزامی است") // changed to email
+      .email("ایمیل معتبر وارد کنید"), // Validate email format
 
     password: yup
       .string()
@@ -33,70 +34,80 @@ export default function LoginForm() {
       .matches(/[@$!%*?&]/, "رمز عبور باید شامل حداقل یک خرف خاص باشد"),
   });
 
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
-  const onSubmit = (data) => {
-    console.log(data);
-    console.log("logged");
+  const onSubmit = async (data) => {
+    const res = await fetch("https://bankapi.liara.run/api/v1/User/login", {
+      method: "POST",
+      headers: {
+        accept: "*/*",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    console.log(res);
+    const c = await res.text();
+    console.log(c);
+
+    if (res.status === 200) {
+      localStorage.setItem("token", c); // Save token to localStorage
+      navigate("/homedata"); // Navigate to home page after successful login
+    }
   };
 
   return (
-    <>
-      <ContainerTheme>
-        <Form
-          Header={"اینترنت بانک من"}
-          FormTitle={"ورود به حساب کاربری"}
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          <Input
-            inputName="پست الکترونیک"
-            type="email"
-            placeholder="لطفا ایمیل خود را وارد کنید"
-            dir={"ltr"}
-            // onChange={onChange}
-            id="email"
-            register={register("email")}
-          />
-          {errors.email && (
-            <p style={{ color: "red", paddingBottom: "10px" }}>
-              {" "}
-              {errors.email?.message}
-            </p>
-          )}
-          <Input
-            inputName={"رمز عبور"}
-            type={visibility ? "type" : "password"}
-            placeholder=""
-            icon={visibility ? VisibilityOffIcon : VisibilityIcon}
-            dir={"ltr"}
-            className={"pl-11 "}
-            onClick={clickHandler}
-            // onChange={onChange}
-            id="password"
-            register={register("password")}
-          />
-          {errors.password && (
-            <p style={{ color: "red", paddingBottom: "10px" }}>
-              {" "}
-              {errors.password?.message}
-            </p>
-          )}
-          <Buttons
-            btnName={"ورود به حساب"}
-            type="button"
-            onClick={handleSubmit(onSubmit)}
-          />
+    <ContainerTheme>
+      <Form Header={"اینترنت بانک من"} FormTitle={"ورود به حساب کاربری"} onSubmit={handleSubmit(onSubmit)}>
+        <Input
+          inputName="پست الکترونیک"
+          type="email"
+          placeholder="لطفا ایمیل خود را وارد کنید"
+          dir={"ltr"}
+          id="email"
+          register={register("email")}
+          className={'pl-2'}
+        />
+        {errors.email && (
+          <p style={{ color: "red", paddingBottom: "10px" }}>
+            {errors.email?.message}
+          </p>
+        )}
 
-          <SubLine SubText={"عضو نیستید ؟"}>
-            <Links linkName="ایجاد حساب" to="/signup" />
-          </SubLine>
-        </Form>
-        {/* whole form */}
-      </ContainerTheme>
-    </>
+        <Input
+          inputName={"رمز عبور"}
+          type={visibility ? "text" : "password"}
+          placeholder=""
+          icon={visibility ? VisibilityOffIcon : VisibilityIcon}
+          dir={"ltr"}
+          className={"pl-11"}
+          onClick={clickHandler}
+          id="password"
+          register={register("password")}
+        />
+        {errors.password && (
+          <p style={{ color: "red", paddingBottom: "10px" }}>
+            {errors.password?.message}
+          </p>
+        )}
+
+        <Buttons btnName={"ورود به حساب"} type="button" onClick={handleSubmit(onSubmit)} />
+
+        <SubLine SubText={"عضو نیستید ؟"}>
+          <Links linkName="ایجاد حساب" to="/signup" />
+        </SubLine>
+      </Form>
+    </ContainerTheme>
   );
 }
+
+
+
+
+
+

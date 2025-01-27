@@ -14,16 +14,22 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import JalaliDatePicker from "../../../Components/JalaliDatePicker/JalaliDatePicker";
 import Countdown from "react-countdown";
+import { useNavigate } from "react-router-dom";
+
 const isPersian = (value) => {
   if (!value) return false; // Ensure the value is not empty or null
   const persianRegex = /^[\u0600-\u06FF\s]+$/; // Persian characters and spaces
   return persianRegex.test(value);
 };
 export default function SignupForm() {
+  const navigate = useNavigate();
+  const [idNumberLength, setIdNumberLength] = useState(0); // To track the number of entered digits
+
   const schema = yup.object().shape({
     name: yup
       .string()
       .required("نام الزامی است")
+      .min(3, "حداقل 3 حرف لازم است")
       .matches(/^[^0-9]+$/, "نام نباید شامل عدد باشد")
       .matches(
         /^[^!@#$%^&*()-_=+~`.<>?/";:]+$/,
@@ -33,6 +39,7 @@ export default function SignupForm() {
     lastName: yup
       .string()
       .required("نام خانوادگی الزامی است")
+      .min(3, "حداقل 3 حرف لازم است")
       .matches(/^[^0-9]+$/, "نام خانوادگی نباید شامل عدد باشد")
       .matches(
         /^[^!@#$%^&*()-_=+~`.<>?/";:]+$/,
@@ -108,6 +115,17 @@ export default function SignupForm() {
   const [passVisibility, setPassVisibility] = useState(false);
   const [confPassVisibility, setConfPassVisibility] = useState(false);
   const [countdownKey, setCountdownKey] = useState(0);
+  const [phoneNumber, setPhoneNumber] = useState("");
+  // const [formData, setFormData] = useState({});
+  const [errorMessage, setErrorMessage] = useState("");
+  const [formData, setFormData] = useState({ otp: "", phoneNumber: "" });
+
+  const onChangeHandler = (field, value) => {
+    setFormData((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
 
   useEffect(() => {
     if (formStep === 3) {
@@ -119,6 +137,7 @@ export default function SignupForm() {
     register,
     handleSubmit,
     trigger,
+    getValues,
     formState: { errors, isValid },
   } = useForm({
     resolver: yupResolver(schema),
@@ -130,36 +149,161 @@ export default function SignupForm() {
     setCountdownKey((prev) => prev + 1);
   };
 
-  // const onSubmit = async (data) => {
-  //   console.log("Form submitted:", data);
-  //   const response = await fetch("http://localhost:3000/register", {
-  //     method: "POST",
-  //     headers: {
-  //       accept: "application",
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(data),
-  //   });
-  //   console.log("res", await response.json());
+ 
+
+  const sendOtp = async (phoneNumber) => {
+    console.log("show number:", phoneNumber);
+
+    try {
+      const number = { phoneNumber: formData.phoneNumber };
+      const response = await fetch(
+        "https://bankapi.liara.run/api/v1/Otp/send-otp",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ phoneNumber: phoneNumber }),
+        }
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`); // Handle HTTP errors
+      }
+      const data = await response.json(); // Wait for the response to be parsed as JSON
+      console.log(data); // Handle the response data
+      console.log("OTP Response:", result); // Log the response for debugging
+      console.log("Sending OTP to:", phoneNumber);
+    } catch (error) {
+      console.error("Error:", error); // Handle any errors
+    }
+  };
+
+  
+
+  const verifyOtp = async (otpPassword) => {
+    try {
+      const phoneNumber = getValues("phoneNumber");
+      const otp = getValues("otpPassword");
+
+      // Validate OTP and phone number
+      if (!otp || otp.length !== 6 || isNaN(otp)) {
+        setErrorMessage("رمز وارد شده نامعتبر است");
+        return false;
+      }
+      if (
+        !phoneNumber ||
+        phoneNumber.length !== 11 ||
+        !/^09\d{9}$/.test(phoneNumber)
+      ) {
+        setErrorMessage("فرمت شماره تلفن نامعتبر است");
+        return false;
+      }
+
+      const payload = { code: otp, phoneNumber };
+      console.log("Request payload for verifyCode:", payload);
+
+      // Verify OTP
+      const responseVerify = await fetch(
+        "https://bankapi.liara.run/api/v1/Otp/verify-otp",
+        {
+          method: "POST",
+          headers: {
+            accept: "*/*",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        }
+      );
+
+      const token = await responseVerify.text();
+      console.log("Received token:", token);
+
+      if (responseVerify.status === 200) {
+        console.log(
+          "OTP verified successfully. Proceeding with registration..."
+        );
+
+        // Gather all form data
+        const formData = {
+          firstName: getValues("name"),
+          lastName: getValues("lastName"),
+          nationalCode: getValues("idNumber"),
+          birthdate: getValues("date"),
+          phoneNumber: getValues("phoneNumber"),
+          email: getValues("email"),
+          password: getValues("password"),
+          confirmPassword: getValues("confirmPassword"),
+        };
+
+        console.log("Registration payload before request:", formData);
+
+        const responseRegister = await fetch(
+          "https://bankapi.liara.run/api/v1/User/register",
+          {
+            method: "POST",
+            headers: {
+              accept: "*/*",
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(formData),
+          }
+        );
+
+        const registerResult = await responseRegister.json();
+        console.log("Registration response:", registerResult);
+
+        if (responseRegister.status === 200) {
+          navigate("/"); // Redirect to the homepage or login page
+          setTimeout(() => {
+            alert(
+              `کابر گرامی ثبتنام شما با موفقیت انجام شد.
+              برای ورود به پنل کاربری خود ایمیل و پسورد خود را وارد نمایید`
+            );
+          }, 0);
+          return true;
+        } else {
+          console.error(
+            "Registration validation errors:",
+            registerResult.errors
+          );
+          setErrorMessage(
+            registerResult.message || "خطایی در فرآیند ثبت نام رخ داده است"
+          );
+          return false;
+        }
+      } else {
+        setErrorMessage(
+          "رمز وارد شده نامعتبر است یا زمان آن به اتمام رسیده است"
+        );
+        return false;
+      }
+    } catch (error) {
+      console.error("Error verifying OTP or registering user:", error);
+      setErrorMessage(error.message || "خطایی رخ داده است");
+      return false;
+    }
+  };
+
+  // const onSubmit = async () => {
+  //   const otpPassword = getValues("otpPassword");
+
+  //   const isOtpValid = await verifyOtp(otpPassword);
+  //   if (isOtpValid) {
+  //     console.log("OTP verified, redirecting to login page...");
+  //   } else {
+  //     console.error("Invalid OTP, please try again.");
+  //   }
   // };
 
-  const onSubmit = async (data) => {
-    try {
-      console.log("Form submitted:", data);
+  const onSubmit = async () => {
+    const otpPassword = getValues("otpPassword");
+    const isSuccess = await verifyOtp(otpPassword);
 
-      const response = await api.post(
-        "https://internetbankwebapi.liara.run/api/v1/User/register",
-        data
-      );
-      console.log(response.data);
-    } catch (error) {
-      console.error("Error:", error.response?.data || error.message);
-
-      if (error.response?.data?.message) {
-        alert(error.response.data.message); // Show specific error message from the API
-      } else {
-        alert("An unexpected error occurred. Please try again.");
-      }
+    if (isSuccess) {
+      console.log("OTP verified and registration completed successfully.");
+    } else {
+      console.error("Verification or registration failed.");
     }
   };
 
@@ -171,11 +315,22 @@ export default function SignupForm() {
         ? ["date", "phoneNumber", "email"]
         : formStep === 2
         ? ["username", "password", "confirmPassword"]
-        : ["optCode"];
+        : ["otpPassword"];
 
     const isStepValid = await trigger(currentStepFields);
 
     if (isStepValid) {
+      if (formStep === 2) {
+        // Step 3 is about to be shown
+        const phoneNumber = getValues("phoneNumber"); // Retrieve the phone number
+        console.log("Phone Number captured before sending OTP:", phoneNumber);
+
+        if (phoneNumber) {
+          await sendOtp(phoneNumber); // Pass the phone number to sendOtp
+        } else {
+          console.error("Phone number is missing!");
+        }
+      }
       setFormStep((prev) => prev + 1);
     }
   };
@@ -224,16 +379,33 @@ export default function SignupForm() {
               {errors.lastName?.message}
             </p>
 
-            <Input
-              style={{ background: "#374151" }}
-              inputName="کدملی"
-              type="text"
-              placeholder="لطفا کدملی خود را وارد کنید"
-              id="idNumber"
-              dir="ltr"
-              register={register("idNumber")}
-              className={"pl-4"}
+            <Controller
+              name="idNumber"
+              control={control}
+              defaultValue="" // Ensure defaultValue is explicitly set
+              render={({ field }) => (
+                <Input
+                  style={{ background: "#374151" }}
+                  inputName="کدملی"
+                  type="text"
+                  placeholder="لطفا کدملی خود را وارد کنید"
+                  className={"pl-2"}
+                  id="idNumber"
+                  dir="ltr"
+                  value={field.value} // Bind value to Controller state
+                  onChange={(e) => {
+                    const rawValue = e.target.value;
+                    const numericValue = rawValue.replace(/\D/g, ""); // Keep only digits
+                    if (numericValue.length <= 10) {
+                      field.onChange(numericValue); // Update Controller state
+                      setIdNumberLength(numericValue.length); // Update length tracker
+                    }
+                  }}
+                />
+              )}
             />
+
+            <p style={{ color: "white" }}>{idNumberLength}/10</p>
             <p style={{ color: "red", paddingBottom: "10px" }}>
               {errors.idNumber?.message}
             </p>
@@ -252,7 +424,9 @@ export default function SignupForm() {
                   id="date"
                   type={"text"}
                   {...field}
-                  onChange={(date) => field.onChange(date)}
+                  onChange={(date) => {
+                    field.onChange(date);
+                  }}
                   placeholder="تاریخ تولد خود را انتخاب کنید"
                 />
               )}
@@ -354,7 +528,9 @@ export default function SignupForm() {
           <>
             <Input
               style={{ background: "#374151" }}
-              inputName="رمز Otp را وارد کنید  "
+              inputName={`رمز یکبار مصرف به (${
+                phoneNumber || "شماره وارد شده"
+              }) ارسال شد`}
               type={passVisibility ? "text" : "password"}
               placeholder="لطفا رمز دریافتی را وارد کنید"
               icon={passVisibility ? VisibilityOffIcon : VisibilityIcon}
@@ -369,7 +545,13 @@ export default function SignupForm() {
             </p>
             <div className="flex items-center justify-between">
               <Links
-                onclick={CountdownReset}
+                onclick={() => {
+                  CountdownReset(); // Reset the countdown timer
+                  const phoneNumber = getValues("phoneNumber"); // Get the phone number
+                  if (phoneNumber) {
+                    sendOtp(phoneNumber); // Send the OTP again
+                  }
+                }}
                 linkName="دریافت مجدد کد"
                 className={"pt-0 pb-2"}
               />
@@ -411,3 +593,5 @@ export default function SignupForm() {
     </ContainerTheme>
   );
 }
+
+

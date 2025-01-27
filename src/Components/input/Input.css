@@ -1,5 +1,5 @@
 input::placeholder {
-  text-align: right;
+  text-align: right !important;
 }
 
 
@@ -9,18 +9,38 @@ input::placeholder {
 /* For Webkit browsers (Chrome, Safari) */
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
-    -webkit-appearance: none; /* Hide the spinner */
-    margin: 0; /* Remove margin */
+  -webkit-appearance: none; /* Hide the spinner */
+  margin: 0; /* Remove margin */
 }
 
 /* For Firefox */
 input[type="number"] {
-    -moz-appearance: textfield; /* Change appearance to textfield to remove spinners */
+  -moz-appearance: textfield; /* Change appearance to textfield to remove spinners */
 }
-
 
 .icon {
   color: aliceblue; /* Icon color */
   margin-left: -30px; /* Adjust positioning as needed */
   z-index: 1; /* Ensure it overlaps the input */
+}
+
+/* Default styles */
+input {
+  transition: all 0.3s ease-in-out;
+}
+
+/* Hover effect */
+input:hover {
+  border-color: black; /* Change border to black on hover */
+}
+
+/* Focus effect */
+input:focus {
+  border-color: rgba(74, 129, 211, 0.571); /* Change border to blue when input is focused */
+  outline: none; /* Remove the default outline */
+}
+
+/* Optional: Add more styles for smoother transition of the border */
+input {
+  transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }

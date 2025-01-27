@@ -1,31 +1,55 @@
 .jalali-date-input {
-    text-align: left;
-    padding: 8px;
-    font-size: 16px;
-    outline: none;
-    background-color: #374151;
-    border-radius: 7px;
-    border:1px solid rgb(100, 97, 97);
-    color: rgb(224, 226, 226);
-    width: 344px;
-    margin-bottom: 20px;
-    
-    
-  }
-  
-  .jalali-date-container {
-    display: flex;
-    justify-content: center;
-    
-  }
-  
-  .jalali-calendar .rmdp-calendar {
-    background-color: #b9bdc3;
-    border-radius: 8px;
-    color: white;
-  }
-  
-  .jalali-date-input[title] {
-    position: relative;
-  }
-  
+  text-align: left;
+  padding: 8px;
+  font-size: 16px;
+  outline: none;
+  background-color: #374151;
+  border-radius: 7px;
+  border: 1px solid rgb(100, 97, 97);
+  color: rgb(224, 226, 226);
+  width: 344px;
+  margin-bottom: 20px;
+}
+
+.jalali-date-container {
+  display: flex;
+  justify-content: center;
+}
+
+.jalali-calendar .rmdp-calendar {
+  background-color: #b9bdc3;
+  border-radius: 8px;
+  color: white;
+}
+
+.jalali-date-input[title] {
+  position: relative;
+}
+.jalali-date-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+
+
+.jalali-date-input {
+  padding-left: 16px; 
+}
+
+.clear-date-btn {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #999;
+}
+
+.clear-date-btn:hover {
+  color: #ffffff;
+  transition: all 0.2;
+}

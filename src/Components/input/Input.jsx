@@ -1,5 +1,5 @@
-import React from "react";
-import "./input.css";
+import React from 'react'
+import './input.css'
 
 export default function Input(props) {
   const {
@@ -10,9 +10,10 @@ export default function Input(props) {
     dir,
     className,
     onClick,
-    onChange,
     id,
-    register,
+    value, // Support for controlled components
+    onChange, // Support for controlled components
+    register, // Support for react-hook-form register
   } = props;
 
   return (
@@ -27,6 +28,7 @@ export default function Input(props) {
             <Icon />
           </div>
         )}
+        
         <input
           style={{
             background: "#374151",
@@ -36,11 +38,18 @@ export default function Input(props) {
           placeholder={placeholder}
           dir={dir}
           id={id}
-          onChange={onChange}
-          {...register}
+          value={value} // For controlled input
+          onChange={onChange} // For controlled input
+          {...(register ? register : {})} // Allow react-hook-form's register
         />
       </div>
     </div>
   );
 }
+
+
+
+
+
+
 
